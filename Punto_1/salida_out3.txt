@@ -1,0 +1,6 @@
+Archivo3.txt
+Archivo3.txt-mv.txt
+Archivo3@.txt
+Archivo3@.txt-mv.txt
+Archivo4.txt
+Archivo4.txt-mv.txt
