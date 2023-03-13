@@ -247,60 +247,92 @@ do
         echo "----------------------------- Fin del Script ------------------------------------------"
         ;;
         8)
-        echo "-----------------------------------------------------------------------------"
-        echo "Instalar docker-compose"
-        echo "-----------------------------------------------------------------------------"
-        sudo apt-get update
-        sudo apt-get install curl
-        sudo apt-get install gnupg
-        sudo apt-get install ca-certificates
-        sudo apt-get install lsb-release
-        sudo apt-get install docker-compose-plugin
-        sudo docker-compose --version
-        read -p "Press [Enter] key to continue..." readEnterKey
-        
-        sudo apt-get update
-        read -p "Press [Enter] key to continue..." readEnterKey
-        sudo apt-get install docker.io
-        read -p "Press [Enter] key to continue..." readEnterKey
-        
-        sudo mkdir -p /etc/apt/keyrings 
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-        
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs)         stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-        sudo apt-get update
-        read -p "Press [Enter] key to continue..." readEnterKey
-        
+        # Ejecucion
+            echo "-----------------------------------------------------------------------------"
+            echo "Inicia instalacion docker CE                                                 "
+            echo "-----------------------------------------------------------------------------"
+            read -p ">> Paso 1: Desea Instalar Docker (y/n)? " answer
 
-        echo "-----------------------------------------------------------------------------"
-        echo "Instalar docker ce"
-        echo "-----------------------------------------------------------------------------"
-        sudo apt-get install docker-ce  
-        sudo apt-get install docker-ce-cli
-        sudo apt-get install containerd.io
-        sudo apt-get install docker-compose
-        sudo apt-get install docker-compose-plugin
-        echo "-----------------------------------------------------------------------------"
-        echo "Verificar Version"
-        echo "-----------------------------------------------------------------------------"
-        docker --version
-        echo "-----------------------------------------------------------------------------"
-        echo "Iniciar docker con el sistema"
-        echo "-----------------------------------------------------------------------------"
-        sudo systemctl enable docker
-        sudo systemctl start docker
-        user=$(whoami)
-        sudo usermod -G docker $user
-        grep $user /etc/group
-        echo "-----------------------------------------------------------------------------"
-        echo "folder docker"
-        echo "-----------------------------------------------------------------------------"
-        folder=/Images
-        sudo mkdir -p $folder/$user
-        sudo mkdir -p $folder/$user/Data
-        sudo chown -R $user:$user $folder/$user
-        sudo chown -R $user:$user $folder/$user/Data
-        echo "----------------------------- Fin del Script ------------------------------------------"
+            if [[ $answer =~ ^[Yy]$ ]]
+                then
+                    cd ~/
+
+                    echo "-----------------------------------------------------------------------------"
+                    echo "Instalación Prerequisitios"
+                    echo "-----------------------------------------------------------------------------"
+                    sudo apt-get update -y
+                    sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
+                    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add 
+                    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" -y
+                    sudo apt update -y
+                    apt-cache policy docker-ce -y
+                    sudo apt install docker-ce -y
+
+                    echo "-----------------------------------------------------------------------------"
+                    echo "Verificar Version"
+                    echo "-----------------------------------------------------------------------------"
+                    docker --version
+
+                    echo "-----------------------------------------------------------------------------"
+                    echo "Iniciar docker con el sistema"
+                    echo "-----------------------------------------------------------------------------"
+                    sudo systemctl enable docker
+                    sudo systemctl start docker
+                    
+                    echo "-----------------------------------------------------------------------------"
+                    echo "Crear usuario de Docker"
+                    echo "-----------------------------------------------------------------------------"
+                    sudo adduser docker
+
+                    
+                    echo "-----------------------------------------------------------------------------"
+                    echo "Agregar permisos usuario ubunutu al grupo Docker"
+                    echo "-----------------------------------------------------------------------------"
+                    user=$(whoami)
+                    sudo usermod -G docker $user
+                    grep $user /etc/group
+
+                    echo "-----------------------------------------------------------------------------"
+                    echo "folder docker"
+                    echo "-----------------------------------------------------------------------------"
+                    folder=/Images
+                    sudo mkdir -p $folder/$user
+                    sudo mkdir -p $folder/$user/Data
+                    sudo chown -R $user:$user $folder/$user
+                    sudo chown -R $user:$user $folder/$user/Data
+                    ls -ltr $folder/
+
+                    read -p "Press [Enter] key to continue..." readEnterKey
+
+                    echo "-----------------------------------------------------------------------------"
+                    echo "Inicia instalacion Docker Compose                                            "
+                    echo "-----------------------------------------------------------------------------"
+
+                    sudo mkdir -p /usr/local/bin
+                    sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+                    sudo chmod +x /usr/local/bin/docker-compose
+
+                    echo "-----------------------------------------------------------------------------"
+                    echo "Verificar docker-compose"
+                    echo "-----------------------------------------------------------------------------"
+                    sudo docker-compose --version
+
+                    read -p "Press [Enter] key to continue..." readEnterKey
+
+
+                    echo "-----------------------------------------------------------------------------"
+                    echo "Fin instalacion Docker                                                       "
+                    echo "-----------------------------------------------------------------------------"
+
+                    read -p "Press [Enter] key to continue..." readEnterKey
+            fi
+            echo "-----------------------------------------------------------------------------"
+            echo "Sin Ajustes!!"
+            echo "-----------------------------------------------------------------------------"
+                
+            echo ---------- Fin del Script ----------------------------
+            read -p "Press [Enter] key to continue..." readEnterKey
         ;;
         E)                
         echo "Gracias!"
