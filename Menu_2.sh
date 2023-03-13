@@ -3,7 +3,7 @@ while :
 do
     # Limpiar pantalla
         clear    
-    # Limpieaza de variabñes        
+    # Limpieaza de variabï¿½es        
         unset choice
     # display menu
         echo "- --------------------------------- -"
@@ -29,7 +29,7 @@ do
         echo "- --------------------------------- -"
          
     # get input from the user         
-        read -p "Enter your choice [1-8] " choice
+        read -p "Enter your choice [1-8] : " choice
     # get input from the user         
         case $choice in       
         1)  
@@ -44,6 +44,7 @@ do
         preser=$(grep preserve_hostname /etc/cloud/cloud.cfg)
         #echo ">> Resultado /etc/cloud/cloud.cfg: [ >> $preser << ]"
         echo ">> Nombre Server Actual: [$(hostname)] "
+        echo "----------------------------- Fin del Script ------------------------------------------"
         read -p "Press [Enter] key to continue..." readEnterKey
         ;;
         2)  
@@ -56,7 +57,7 @@ do
         read -p "Desea realizar la particion del disco \"$Disk\" (y/n)? " answer
         if [[ $answer =~ ^[Yy]$ ]]; then
             echo "------------------------------------------------------------------------------------------------------"
-            echo "paso 1: Debe darle la opcion <n> para añadir la nueva particion"
+            echo "paso 1: Debe darle la opcion <n> para aï¿½adir la nueva particion"
             echo "------------------------------------------------------------------------------------------------------"
             echo "paso 2: Debe seleccionar el numero de la particion que va a realizar"
             echo "------------------------------------------------------------------------------------------------------"
@@ -66,7 +67,7 @@ do
             echo "------------------------------------------------------------------------------------------------------"
             echo "paso 5: Debe escoger el espacio del disco"
             echo "------------------------------------------------------------------------------------------------------"
-            echo "paso 3: Debe insetar <q> si desea salir y no guardar y <w> si desea aplicar la partición permanente"
+            echo "paso 3: Debe insetar <q> si desea salir y no guardar y <w> si desea aplicar la particiï¿½n permanente"
             echo "------------------------------------------------------------------------------------------------------"
             sudo fdisk $Disk
         fi
@@ -76,6 +77,7 @@ do
             echo "Cambios no aplicados"
             echo "----------------------"
         fi
+        echo "----------------------------- Fin del Script ------------------------------------------"
         ;;  
         3)
         echo "A continuacion vera las interfaces, la ip actual, etc.."
@@ -104,7 +106,7 @@ do
         ;;
         4)
         echo "--------------------------------------------------------------------------------------------------------------------------"
-        echo "A continuacion podra editar en la tabla los host que necesite añadir"
+        echo "A continuacion podra editar en la tabla los host que necesite aï¿½adir"
         echo "--------------------------------------------------------------------------------------------------------------------------"
         echo "Cuando abra el archivo debera insertar al final  la IP y el nombre de la siguiente namera : [<192.168.137.30 k8s-master>] "
         echo "--------------------------------------------------------------------------------------------------------------------------"
@@ -112,7 +114,7 @@ do
         echo "--------------------------------------------------------------------------------------------------------------------------"
         read -p "Press [Enter] key to continue..." readEnterKey
         sudo nano /etc/hosts
-       
+        echo "----------------------------- Fin del Script ------------------------------------------"
         read -p "Press [Enter] key to continue..." readEnterKey
         ;;
         
@@ -177,7 +179,7 @@ do
             curl -v telnet://$IP1:$P3
             read -p "Press [Enter] key to continue..." readEnterKey
         fi
-
+        echo "----------------------------- Fin del Script ------------------------------------------"
         ;;
         6)
         Ins=$(sudo apt install resolvconf)
@@ -217,9 +219,10 @@ do
             read -p "Press [Enter] key to continue..." readEnterKey
         fi
         if ["$D"!="D1"] || ["$D"!="D2"] || ["$D"!="D3"] || ["$D"!="D4"] || ["$D"!="D5"]; then
-            echo "no es una opción aceptable"
+            echo "no es una opciï¿½n aceptable"
             read -p "Press [Enter] key to continue..." readEnterKey
         fi
+        echo "----------------------------- Fin del Script ------------------------------------------"
         read -p "Press [Enter] key to continue..." readEnterKey
         ;;
         7)
@@ -241,7 +244,7 @@ do
         echo -e "Para guadar los cambios debes <Ctrl + X> luego <Y> y <Enter>"
         read -p "Press [Enter] key to continue..." readEnterKey
         cd /home/ubuntu ; sudo nano .bashrc
-        
+        echo "----------------------------- Fin del Script ------------------------------------------"
         ;;
         8)
         echo "-----------------------------------------------------------------------------"
@@ -297,7 +300,7 @@ do
         sudo mkdir -p $folder/$user/Data
         sudo chown -R $user:$user $folder/$user
         sudo chown -R $user:$user $folder/$user/Data
-        
+        echo "----------------------------- Fin del Script ------------------------------------------"
         ;;
         E)                
         echo "Gracias!"
